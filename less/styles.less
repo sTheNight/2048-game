@@ -1,0 +1,137 @@
+@theme-color: #0067C0;
+@hover-color: #1975C5;
+@button-border-color: #003E73;
+@block-width: 100px;
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    width: 100vw;
+    height: 100vh;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.button {
+    font-size: 14px;
+    padding: 5px 10px;
+    border-radius: 5px;
+    border-bottom: 1.5px solid @button-border-color;
+    transition: all 0.2s;
+    display: inline-block;
+    cursor: pointer;
+    user-select: none;
+    color: white;
+    background-color: @theme-color;
+
+    &:hover,
+    &:focus {
+        background-color: @hover-color;
+    }
+}
+
+.line {
+    display: flex;
+}
+
+.block {
+    user-select: none;
+    border-radius: 5px;
+    margin: 5px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: @block-width;
+    height: @block-width;
+    font-size: 24px;
+    font-weight: 600;
+    background-color: #e0e0e0;
+    color: #F9F6F2;
+    transition: width 0.2s,height 0.2s;
+    &-2 {
+        background-color: #EEE4DA;
+        color: #776E65;
+    }
+
+    &-4 {
+        background-color: #EDE0C8;
+        color: #776E65;
+    }
+
+    &-8 {
+        background-color: #F2B179;
+    }
+
+    &-16 {
+        background-color: #F59563;
+    }
+
+    &-32 {
+        background-color: #F67C5F;
+    }
+
+    &-64 {
+        background-color: #F65E3B;
+    }
+
+    &-128 {
+        background-color: #EDCF72;
+    }
+
+    &-256 {
+        background-color: #EDCC61;
+    }
+
+    &-512 {
+        background-color: #EDC850;
+    }
+
+    &-1024 {
+        background-color: #EDC53F;
+    }
+
+    &-2048 {
+        background-color: #EDC22E;
+    }
+    @media screen and (max-width: 996px) {
+        width: calc(100vw / 7);
+        height: calc(100vw / 7);
+    }
+}
+
+.control-div {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.control-button {
+    margin: 5px;
+    color: white;
+    padding: 10px;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    user-select: none;
+
+    &.available {
+        cursor: pointer;
+        background-color: @theme-color;
+        transition: all 0.2s;
+
+        &:hover {
+            background-color: @hover-color;
+        }
+    }
+}
