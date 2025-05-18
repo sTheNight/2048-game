@@ -6,17 +6,17 @@ const gameObject = {
         [0, 0, 0, 0]
     ],
     score: 0
-};
+}
 
 window.addEventListener('DOMContentLoaded', () => {
-    initGame();
-    bindEvents();
-});
+    initGame()
+    bindEvents()
+})
 
 function initGame() {
-    generateNewNumber();
-    generateNewNumber();
-    renderBoard();
+    generateNewNumber()
+    generateNewNumber()
+    renderBoard()
 }
 
 function bindEvents() {
@@ -24,36 +24,36 @@ function bindEvents() {
         btn.addEventListener('click', () => {
             switch (btn.innerText) {
                 case '↑':
-                    verticalMove(true);
-                    break;
+                    verticalMove(true)
+                    break
                 case '↓':
-                    verticalMove(false);
-                    break;
+                    verticalMove(false)
+                    break
                 case '←':
-                    horizontalMove(true);
-                    break;
+                    horizontalMove(true)
+                    break
                 case '→':
-                    horizontalMove(false);
-                    break;
+                    horizontalMove(false)
+                    break
             }
         })
-    );
+    )
     document.addEventListener('keydown', e => {
         switch (e.key) {
             case 'ArrowUp':
-                verticalMove(true);
-                break;
+                verticalMove(true)
+                break
             case 'ArrowDown':
-                verticalMove(false);
-                break;
+                verticalMove(false)
+                break
             case 'ArrowLeft':
-                horizontalMove(true);
-                break;
+                horizontalMove(true)
+                break
             case 'ArrowRight':
-                horizontalMove(false);
-                break;
+                horizontalMove(false)
+                break
         }
-    });
+    })
 }
 
 
@@ -78,18 +78,18 @@ function generateNewNumber() {
 function renderBoard() {
     for (let y = 0; y < 4; y++) {
         for (let x = 0; x < 4; x++) {
-            const cell = document.getElementById(`${y}-${x}`);
-            const v = gameObject.board[y][x];
+            const cell = document.getElementById(`${y}-${x}`)
+            const v = gameObject.board[y][x]
             if (v !== 0) {
-                cell.innerText = v;
-                cell.className = `block block-${v}`;
+                cell.innerText = v
+                cell.className = `block block-${v}`
             } else {
-                cell.innerText = '';
-                cell.className = 'block';
+                cell.innerText = ''
+                cell.className = 'block'
             }
         }
     }
-    document.getElementById('h2-score').innerText = `得分：${gameObject.score}`;
+    document.getElementById('h2-score').innerText = `得分：${gameObject.score}`
 }
 
 function mergeLine(array) {
@@ -104,27 +104,30 @@ function mergeLine(array) {
         }
     }
     // 在完成合并后，再进行一次滤去值为 0 的 block
-    filtedArray.filter(item => item != 0);
+    filtedArray.filter(item => item != 0)
     while (filtedArray.length != 4) {
         // 过滤完后倘若数组长度不足则 4，补齐数组长度
         filtedArray.push(0)
     }
-    return filtedArray;
+    return filtedArray
 }
 
 // 后续处理
 function postMove(changed) {
     if (!changed)
-        return;
+        return
     generateNewNumber()
     renderBoard()
-    if (isGameOver())
-        alert(`游戏结束，得分：${gameObject.score}`)
+    if (isGameOver()) {
+        setTimeout(() => {
+            alert(`游戏结束，得分：${gameObject.score}`)
+        }, 0)
+    }
 }
 
 function verticalMove(isPositiveDirection) {
     // 向上为正方向
-    let isMoved = false;
+    let isMoved = false
     for (let x = 0; x < 4; x++) {
         let originalColumn = []
         for (let i = 0; i < 4; i++) {
@@ -144,11 +147,11 @@ function verticalMove(isPositiveDirection) {
             gameObject.board[i][x] = mergedColumn[i]
         }
     }
-    postMove(isMoved);
+    postMove(isMoved)
 }
 function horizontalMove(isPositiveDirection) {
     // 向左为正方向
-    let isMoved = false;
+    let isMoved = false
     for (let y = 0; y < 4; y++) {
         let originalRow = gameObject.board[y]
         let mergedRow = isPositiveDirection ? mergeLine(originalRow) : mergeLine(originalRow.reverse());
@@ -164,14 +167,14 @@ function isGameOver() {
         for (let x = 0; x < 4; x++) {
             // 倘若存在某个 block 的值为 0 则标记为可以继续合并
             if (gameObject.board[y][x] === 0)
-                return false;
+                return false
             // 倘若存在某个块的值与右边或下边的块的值相同则标记为可以继续合并
             // 由于是从 左上角开始遍历因此不需要考虑左边和上边的块的值是否相同
             if (x < 3 && gameObject.board[y][x] === gameObject.board[y][x + 1])
-                return false;
+                return false
             if (y < 3 && gameObject.board[y][x] === gameObject.board[y + 1][x])
-                return false;
+                return false
         }
     }
-    return true;
+    return true
 }
